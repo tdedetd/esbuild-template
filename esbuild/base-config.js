@@ -1,3 +1,5 @@
+const path = require('path');
+
 const esbuildPluginClean = require('esbuild-plugin-clean');
 const htmlPlugin = require('./plugins/html-plugin');
 const createDistDirPlugin = require('./plugins/create-dist-dir-plugin');
@@ -11,10 +13,9 @@ const baseConfig = {
   bundle: true,
   outdir: 'dist',
   outbase: 'src',
-  minify: false,
   sourcemap: true,
   target: ['es2020'],
-  tsconfig: 'tsconfig.json',
+  tsconfig: path.join(process.cwd(), 'tsconfig.json'),
   treeShaking: true,
   platform: 'browser',
   format: 'esm',
@@ -29,9 +30,6 @@ const baseConfig = {
     '.png': 'file',
     '.jpg': 'file',
     '.gif': 'file'
-  },
-  define: {
-    'process.env.NODE_ENV': '"production"'
   },
   plugins: [
     createDistDirPlugin,

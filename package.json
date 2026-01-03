@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "node esbuild.config.js"
+    "build": "tsc -noEmit && node esbuild.config.js",
+    "dev": "node esbuild.config.js --dev"
   },
   "keywords": [],
-  "author": "",
+  "author": "tdedetd",
   "license": "ISC",
   "devDependencies": {
     "esbuild": "^0.27.2",
