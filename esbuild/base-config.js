@@ -9,7 +9,10 @@ const writeOutputFilesPlugin = require('./plugins/write-output-files-plugin');
  * @type {import('esbuild').BuildOptions}
  */
 const baseConfig = {
-  entryPoints: ['src/typescript/index.ts'],
+  entryPoints: [
+    'src/typescript/index.ts',
+    'src/styles/styles.css',
+  ],
   bundle: true,
   outdir: 'dist',
   outbase: 'src',

@@ -1,31 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const getOutputFilename = require('./utils/get-output-filename');
 
-const mapFileRegex = /^.*\.map$/;
-
-/**
- * @type {(outputFiles: import('esbuild').OutputFile[] | undefined) => string}
- */
-function getScriptTags(outputFiles) {
-  if (!outputFiles) {
-    return '';
-  }
-
-  return outputFiles
-    .map((outputFile) => getOutputFilename(outputFile))
-    .filter((filename) => !(mapFileRegex.test(filename)))
-    .map((filename) => `<script src="./${filename}"></script>`)
-    .join('');
-}
-
-/**
- * @type {(html: string, str: string) => string}
- */
-function insertStringToEndingOfBody(html, str) {
-  const position = html.lastIndexOf('</body>');
-  return `${html.slice(0, position)}${str}${html.slice(position)}`;
-}
+const HtmlEsbuild = require('./utils/html-esbuild');
 
 /**
  * @type {import('esbuild').Plugin}
@@ -38,13 +14,11 @@ const htmlPlugin = {
       const htmlOut = path.join(process.cwd(), 'dist/index.html');
 
       if (fs.existsSync(htmlSrc)) {
-        const scriptTags = getScriptTags(outputFiles);
-        const htmlContent = insertStringToEndingOfBody(
-          fs.readFileSync(htmlSrc, 'utf8'),
-          scriptTags
-        );
+        new HtmlEsbuild(htmlSrc, outputFiles)
+          .insertScripts()
+          .insertStyles()
+          .save(htmlOut);
 
-        fs.writeFileSync(htmlOut, htmlContent);
         console.log('- index.html has been processed and copied');
       }
     });

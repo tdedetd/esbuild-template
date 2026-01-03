@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const getOutputFilename = require('./utils/get-output-filename');
+const getOutputFilename = require('../utils/get-output-filename');
 
 /**
  * @type {import('esbuild').Plugin}
