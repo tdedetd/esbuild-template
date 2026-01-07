@@ -8,7 +8,7 @@ const devConfig = {
   minify: false,
   sourcemap: 'linked',
   define: {
-    'process.env.NODE_ENV': '"development"'
+    'process.env.NODE_ENV': '"development"',
   },
 };
 

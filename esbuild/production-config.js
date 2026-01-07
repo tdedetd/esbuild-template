@@ -10,7 +10,7 @@ const productionConfig = {
   entryNames: '[name].[hash]',
   splitting: true,
   define: {
-    'process.env.NODE_ENV': '"production"'
+    'process.env.NODE_ENV': '"production"',
   },
 };
 
